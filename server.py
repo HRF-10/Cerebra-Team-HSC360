@@ -4,14 +4,14 @@ from pymongo.server_api import ServerApi
 
 app = Flask(__name__)
 
-# === KONEKSI KE MONGODB ===
+# === INI  BUAT KONEKSI KE MONGODB ===
 uri = "mongodb+srv://cerebrateam:cerebrahsc360@cerebracluster.eor71.mongodb.net/?retryWrites=true&w=majority&appName=CerebraCluster"
 
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client["sensor_data"]  # Nama database
 collection = db["esp32_readings"]  # Nama koleksi
 
-# === ROUTE UNTUK MENYIMPAN DATA DARI ESP32 ===
+# === INI ROUTE BUAT MENYIMPAN DATA DARI ESP32 ===
 @app.route('/data', methods=['POST'])
 def receive_data():
     try:
@@ -26,6 +26,5 @@ def receive_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# === JALANKAN SERVER ===
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
